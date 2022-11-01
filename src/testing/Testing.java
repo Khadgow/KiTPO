@@ -13,7 +13,7 @@ public class Testing {
 
     private static String INT_FILE_SAVE = "integer.dat";
     private static String TIME_FILE_SAVE = "time.dat";
-    public void testFloatType(){
+    public void testIntegerType(){
         factoryType = new FactoryType();
         System.out.println("\n--------------TEST FOR INTEGER-------------");
         userType = factoryType.getBuilderByName("Integer");
@@ -54,7 +54,7 @@ public class Testing {
         cycleList.printList();
 
         System.out.println("-----------SORTING----------");
-        cycleList.sort(userType.getTypeComparator());
+        cycleList.sort();
         cycleList.printList();
 
         System.out.println("---LOAD FROM FILE----");
@@ -68,7 +68,7 @@ public class Testing {
         cycleList.forEachReverse(System.out::println);
     }
 
-    public void testPointType(){
+    public void testTimeType(){
         factoryType = new FactoryType();
         System.out.println("\n--------------TEST FOR TIME-------------");
         userType = factoryType.getBuilderByName("Time");
@@ -110,7 +110,7 @@ public class Testing {
         cycleList.printList();
 
         System.out.println("-----------SORTING----------");
-        cycleList.sort(userType.getTypeComparator());
+        cycleList.sort();
         cycleList.printList();
 
         System.out.println("---LOAD FROM FILE----");

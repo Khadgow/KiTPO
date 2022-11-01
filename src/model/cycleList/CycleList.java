@@ -12,12 +12,6 @@ public class CycleList implements Serializable {
 
     private Comparator comparator;
 
-
-    /**
-     * Класс узла списка
-     * Хранит Object в виде данных
-     * Указатель на следующий и предыдущий
-     */
     private class Node implements Serializable {
         Object data;
         Node next;
@@ -116,6 +110,47 @@ public class CycleList implements Serializable {
         }
     }
 
+    public void sort() {
+        if (this.length == 0)
+            return;
+
+        quickSort( 0, length-1);
+    }
+
+    public void quickSort(int low, int high) {
+
+        if (low >= high)
+            return;
+
+        int middle = low + (high - low) / 2;
+        Object opora = getByIndex(middle);
+
+        int i = low, j = high;
+        while (i <= j) {
+            while ( comparator.compare(getByIndex(i), opora) < 0) {
+                i++;
+            }
+
+            while (comparator.compare(getByIndex(j), opora) > 0) {
+                j--;
+            }
+
+            if (i <= j) {
+                Object temp = this.getByIndex(i);
+                getNode(i).data = getNode(j).data;
+                getNode(j).data = temp;
+                i++;
+                j--;
+            }
+        }
+
+        if (low < j)
+            quickSort(low, j);
+
+        if (high > i)
+            quickSort(i, high);
+    }
+
 
     public void forEachReverse(Iterator<Object> iterator) {
         Node tmp = head;
@@ -123,72 +158,6 @@ public class CycleList implements Serializable {
             iterator.toDo(tmp.data);
             tmp = tmp.prev;
         }
-    }
-
-    public void sort(Comparator comparator) {
-        if (head != null && head.next != head && head.prev != head) {
-            Node tail = head.prev;
-            tail.next = null;
-            head.prev = null;
-            head = mergeSort(head, comparator);
-            tail = getNode(length - 1);
-            tail.next = head;
-            head.prev = tail;
-        }
-    }
-
-    private Node mergeSort(Node headNode, Comparator comparator) {
-        if (headNode == null || headNode.next == null) {
-            return headNode;
-        }
-        Node middle = getMidNode(headNode);
-        Node middleNext = middle.next;
-        middle.next = null;
-        Node left = mergeSort(headNode, comparator);
-        Node right = mergeSort(middleNext, comparator);
-        return merge(left, right, comparator);
-    }
-
-    private Node merge(Node firstNode, Node secondNode, Comparator comparator) {
-        Node merged = new Node(null);
-        Node temp = merged;
-        Node tail = head.prev;
-        while (firstNode != null && secondNode != null) {
-            if (comparator.compare(firstNode.data, secondNode.data) < 0) {
-                temp.next = firstNode;
-                firstNode.prev = temp;
-                firstNode = firstNode.next;
-            } else {
-                temp.next = secondNode;
-                secondNode.prev = temp;
-                secondNode = secondNode.next;
-            }
-            temp = temp.next;
-        }
-        while (firstNode != null) {
-            temp.next = firstNode;
-            firstNode.prev = temp;
-            firstNode = firstNode.next;
-            temp = temp.next;
-        }
-        while (secondNode != null) {
-            temp.next = secondNode;
-            secondNode.prev = temp;
-            secondNode = secondNode.next;
-            temp = temp.next;
-            tail = temp;
-        }
-        return merged.next;
-    }
-
-    private Node getMidNode(Node node) {
-        Node previousNode = node;
-        Node currentNode = node;
-        while (currentNode.next != null && currentNode.next.next != null) {
-            previousNode = previousNode.next;
-            currentNode = currentNode.next.next;
-        }
-        return previousNode;
     }
 
     public void printList() {

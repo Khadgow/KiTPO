@@ -71,16 +71,12 @@ public class GUI extends JPanel {
         createLabel = new JLabel("Сгенерировать данные");
         sortLabel = new JLabel("Сортировка");
 
-
-        //Свойства компонентов
         outTextField.setEnabled(true);
         outTextField.setFont(new Font("Arial", Font.BOLD, 14));
 
-        //Размер макета
         setPreferredSize(new Dimension(600, 563));
         setLayout(null);
 
-        //Добавление компонентов
         add(findBtn);
         add(delBtn);
         add(insertByIdBtn);
@@ -101,7 +97,6 @@ public class GUI extends JPanel {
         add(loadBtn);
         add(clearBtn);
 
-        //регулировка положения компонентов
         findBtn.setBounds(25, 135, 150, 25);
         delBtn.setBounds(25, 220, 150, 25);
         insertByIdBtn.setBounds(25, 315, 150, 25);
@@ -122,7 +117,6 @@ public class GUI extends JPanel {
         loadBtn.setBounds(25, 490, 150, 20);
         clearBtn.setBounds(25, 520, 150, 25);
 
-        //Добавление действий на кнопки
         findBtn.addActionListener(e -> findNodeById());
         delBtn.addActionListener(e -> deleteNodeById());
         insertByIdBtn.addActionListener(e -> addNodeById());
@@ -143,14 +137,13 @@ public class GUI extends JPanel {
     }
 
     public void showMenu() {
-        JFrame frame = new JFrame("MainMenu");
+        JFrame frame = new JFrame("CycleList");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(new GUI());
         frame.pack();
         frame.setVisible(true);
         frame.setResizable(false);
     }
-
 
     private void selectTypeList(ActionEvent actionEvent) {
         JComboBox box = (JComboBox) actionEvent.getSource();
@@ -188,7 +181,7 @@ public class GUI extends JPanel {
     }
 
     private void sortList() {
-        cycleList.sort(userType.getTypeComparator());
+        cycleList.sort();
         setTextOnOutTextField();
     }
 
