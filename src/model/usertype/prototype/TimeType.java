@@ -14,7 +14,7 @@ public class TimeType implements UserType {
 
     @Override
     public String typeName() {
-        return "TIME";
+        return "Time";
     }
 
     @Override

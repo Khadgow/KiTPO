@@ -1,13 +1,21 @@
 package model.factory;
 
 import model.usertype.prototype.AvailableTypes;
-import model.usertype.prototype.TimeType;
+import java.util.Arrays;
+
 import model.usertype.prototype.IntegerType;
+import model.usertype.prototype.TimeType;
 import model.usertype.prototype.UserType;
 
 import java.util.ArrayList;
 
 public class FactoryType {
+    private final static ArrayList<UserType> typeNameList = new ArrayList<>();
+
+    static {
+        ArrayList<UserType> buildersClasses = new ArrayList<>(Arrays.asList(new IntegerType(), new TimeType()));
+        typeNameList.addAll(buildersClasses);
+    }
     public ArrayList<String> getTypeNameList() {
         ArrayList<String> list = new ArrayList<>();
         for(AvailableTypes at : AvailableTypes.values()) {
@@ -17,15 +25,9 @@ public class FactoryType {
     }
 
     public UserType getBuilderByName(String name){
-        switch(name) {
-            case "Integer":
-            {
-                return new IntegerType();
-            }
-            case "Time":
-            {
-                return new TimeType();
-            }
+        for (UserType userType : typeNameList) {
+            if (name.equals(userType.typeName()))
+                return userType;
         }
         return null;
     }

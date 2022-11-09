@@ -12,7 +12,7 @@ public interface UserType {
 
         public Object readValue(InputStream inputStream);
 
-        public Object parseValue(String someString);
+        public Object parseValue(String line);
 
         public Comparator getTypeComparator();
 }

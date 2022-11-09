@@ -15,7 +15,7 @@ public class IntegerType implements UserType {
 
     @Override
     public String typeName() {
-        return "INTEGER";
+        return "Integer";
     }
 
     @Override
@@ -41,8 +41,8 @@ public class IntegerType implements UserType {
     }
 
     @Override
-    public Object parseValue(String someString) {
-        return new IntegerClass(Integer.parseInt(someString));
+    public Object parseValue(String line) {
+        return new IntegerClass(Integer.parseInt(line));
     }
 
     @Override
